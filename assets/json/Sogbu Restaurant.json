@@ -1,0 +1,18 @@
+{
+    "restaurantInfo": {
+        "name": "Sogbu Restaurant",
+        "foodSection": [
+            {"sectionName": "Section 1",
+            "foods": [
+                {"name": "Executive", "price": "5.95", "description": "Rice, Beans and Beef", "ingredients": ""},
+                {"name": "Executive Plus", "price": "7.00", "description": "Rice, Beans, Beef and Vegetables", "ingredients": ""},
+                {"name": "Pizza", "price": "11.25", "description": "Pizza made out of Cheese and Pepperoni", "ingredients": ""}
+            ]},
+            {"sectionName": "Section 2",
+            "foods": [
+                {"name": "Burger", "price": "4.00", "description": "2 patties with cheese and bacon", "ingredients": ""},
+                {"name": "Soda", "price": "1.00", "description": "Pepsi only", "ingredients": ""}
+            ]}
+        ]
+    }
+}

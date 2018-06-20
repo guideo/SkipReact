@@ -1,0 +1,16 @@
+{
+    "restaurantInfo": {
+        "name": "Sogbu Restaurant",
+        "foodSection": [
+            {"sectionName": "Snacks",
+            "foods": [
+                {"name": "French Fries", "price": "1.75", "description": "Fried potato sticks", "ingredients": ""},
+                {"name": "Chicken Wings", "price": "5.00", "description": "Fried chicken breasts", "ingredients": ""}
+            ]},
+            {"sectionName": "Drinks",
+            "foods": [
+                {"name": "Soda", "price": "1.00", "description": "Pepsi", "ingredients": ""}
+            ]}
+        ]
+    }
+}

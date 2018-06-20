@@ -6,9 +6,9 @@ import SelectedRestaurant from './RestaurantDetails';
 
 // Loading Restaurant Logos Statically
 const RESTAURANT_LOGOS = {
-	logo1: require('./assets/resLogo1.jpg'),
-	logo2: require('./assets/resLogo2.jpg'),
-	logo3: require('./assets/resLogo3.jpg'),
+	logo1: require('./assets/img/resLogo1.jpg'),
+	logo2: require('./assets/img/resLogo2.jpg'),
+	logo3: require('./assets/img/resLogo3.jpg'),
 }
 
 // Home Screen class
@@ -46,7 +46,7 @@ class HomeScreen extends React.Component {
 			<View style={{flex: 4, backgroundColor: '#333333', justifyContent: 'center', alignItems: 'center'}}>
 				<Image
 					style={{borderRadius: 3}}
-					source={require('./assets/dinnerpackage_large.jpg')}/>
+					source={require('./assets/img/dinnerpackage_large.jpg')}/>
 			</View>
 			
 			<View style={{flex: 8, backgroundColor: 'white'}}>

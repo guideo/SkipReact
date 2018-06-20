@@ -1,0 +1,12 @@
+{
+    "restaurantInfo": {
+        "name": "Melting Pot Bar & Grill",
+        "foodSection": [
+            {"sectionName": "Section 1",
+            "foods": [
+                {"name": "Churrasco", "price": "10.00", "description": "Meat", "ingredients": ""},
+                {"name": "Salada", "price": "2.00", "description": "Lettuce", "ingredients": ""}
+            ]}
+        ]
+    }
+}
