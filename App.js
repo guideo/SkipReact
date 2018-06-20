@@ -1,9 +1,22 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StyleSheet, Text, View, Image, Button, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
-export default class App extends React.Component {
+// Loading Restaurant Logos Statically
+const RESTAURANT_LOGOS = {
+	logo1: require('./assets/resLogo1.jpg'),
+	logo2: require('./assets/resLogo2.jpg'),
+	logo3: require('./assets/resLogo3.jpg'),
+}
+
+// Home Screen class
+class HomeScreen extends React.Component {
+	
+	_onPressButton() {
+		Alert.alert('You tapped the button!')
+	}
+  
   render() {
     return (
 		<View style={{flex: 1}}>
@@ -20,12 +33,14 @@ export default class App extends React.Component {
 				</View>
 			</View>
 			
+			<TouchableWithoutFeedback onPress={this._onPressButton}>
 			<View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#dddddd'}}>
 				<View style={{marginLeft: 10}}>
 					<Icon name='search' color='#888888'/>
 				</View>
 				<Text style={{color: '#888888'}}>Search</Text>
 			</View>
+			</TouchableWithoutFeedback>
 			
 			<View style={{flex: 4, backgroundColor: '#333333', justifyContent: 'center', alignItems: 'center'}}>
 				<Image
@@ -34,30 +49,48 @@ export default class App extends React.Component {
 			</View>
 			
 			<View style={{flex: 8, backgroundColor: 'white'}}>
-				<Restaurant name='Sogbu Restaurant' img='1' score='9.7'/>
-				<Restaurant name='Melting Pot Bar & Grill' img='2' score='9.3'/>
-				<Restaurant name='Premium Burger' img='3' score='9.6'/>
+				<Restaurant navigation={this.props.navigation} name='Sogbu Restaurant' img='1' score='9.7'/>
+				<Restaurant navigation={this.props.navigation} name='Melting Pot Bar & Grill' img='2' score='9.3'/>
+				<Restaurant navigation={this.props.navigation} name='Premium Burger' img='3' score='9.6'/>
 			</View>
 		</View>
     );
   }
 }
 
-const RESTAURANT_LOGOS = {
-	logo1: require('./assets/resLogo1.jpg'),
-	logo2: require('./assets/resLogo2.jpg'),
-	logo3: require('./assets/resLogo3.jpg'),
+// Restaurant Class
+class SelectedRestaurant extends View {
+	render() {
+		const { navigation } = this.props;
+		const name = navigation.getParam('name', 'Undefined');
+		const otherParam = navigation.getParam('otherParam', 'default');
+		
+		return(
+		   <View style = {{flex: 1, backgroundColor:'blue', justifyContent: 'center', alignItems: 'center'}}>
+			  <Text> This is Restaurant {name}</Text>
+		   </View>
+		);
+	}
 }
 
+// Restaurant Component - Displayed on Home Screen
 class Restaurant extends React.Component {
 	
 	getImage(num: number) {
 		return RESTAURANT_LOGOS['logo' + num];
 	}
 	
+	SelectRestaurant = () =>
+	{
+		this.props.navigation.navigate('RestaurantInfo', {
+              name: this.props.name,
+			  otherParam: 'anything you want here',
+            });
+	}
+	
 	render() {
 		return (
-			<View style={styles.restaurant}>
+			<TouchableOpacity onPress={this.SelectRestaurant} style={styles.restaurant}>
 				<View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
 					<Image
 						style={styles.logo}
@@ -73,12 +106,24 @@ class Restaurant extends React.Component {
 						<Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>{this.props.score}</Text>
 					</View>
 				</View>
-			</View>
-			//<View>Hello {this.props.name}!</View>
+			</TouchableOpacity>
 		);
 	}
 }
 
+// Navigation Stack
+export default createStackNavigator(
+  {
+    Home: HomeScreen,
+	RestaurantInfo: SelectedRestaurant,
+  },
+  {
+    initialRouteName: 'Home',
+	headerMode: 'none',
+  }
+);
+
+// Stylesheet
 const styles = StyleSheet.create({
   restaurant: {
 	flex: 1,
