@@ -1,7 +1,8 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
-import { StyleSheet, Text, View, Image, Button, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableWithoutFeedback, Alert, TouchableOpacity, ImageBackground } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import SelectedRestaurant from './RestaurantDetails';
 
 // Loading Restaurant Logos Statically
 const RESTAURANT_LOGOS = {
@@ -58,21 +59,6 @@ class HomeScreen extends React.Component {
   }
 }
 
-// Restaurant Class
-class SelectedRestaurant extends View {
-	render() {
-		const { navigation } = this.props;
-		const name = navigation.getParam('name', 'Undefined');
-		const otherParam = navigation.getParam('otherParam', 'default');
-		
-		return(
-		   <View style = {{flex: 1, backgroundColor:'blue', justifyContent: 'center', alignItems: 'center'}}>
-			  <Text> This is Restaurant {name}</Text>
-		   </View>
-		);
-	}
-}
-
 // Restaurant Component - Displayed on Home Screen
 class Restaurant extends React.Component {
 	
@@ -84,6 +70,7 @@ class Restaurant extends React.Component {
 	{
 		this.props.navigation.navigate('RestaurantInfo', {
               name: this.props.name,
+              score: this.props.score,
 			  otherParam: 'anything you want here',
             });
 	}
@@ -140,12 +127,14 @@ const styles = StyleSheet.create({
 	height: 80,
   },
   score: {
-	  marginTop: 15,
-	  alignItems: 'center',
-	  justifyContent: 'center',
-	  borderRadius: 5,
-	  backgroundColor: 'red',
-	  width: 40,
-	  height: 30,
+    marginTop: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: 'red',
+    width: 40,
+    height: 30,
+    borderColor: 'white',
+    borderWidth: 2,
   },
 });
