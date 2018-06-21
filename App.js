@@ -3,6 +3,7 @@ import { Icon } from 'react-native-elements';
 import { StyleSheet, Text, View, Image, Button, TouchableWithoutFeedback, Alert, TouchableOpacity, ImageBackground } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import SelectedRestaurant from './RestaurantDetails';
+import FoodInfo from './NutritionalInfo';
 
 // Loading Restaurant Logos Statically
 const RESTAURANT_LOGOS = {
@@ -103,6 +104,7 @@ export default createStackNavigator(
   {
     Home: HomeScreen,
 	RestaurantInfo: SelectedRestaurant,
+	FoodInfo: FoodInfo,
   },
   {
     initialRouteName: 'Home',

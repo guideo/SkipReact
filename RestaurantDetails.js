@@ -1,6 +1,8 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, ImageBackground, ScrollView, Alert } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import FoodInfo from './NutritionalInfo';
 
 // Loading Restaurant Logos Statically
 const RESTAURANT_DATA = {
@@ -10,7 +12,7 @@ const RESTAURANT_DATA = {
 }
 
 // Restaurant Class
-export default class SelectedRestaurant extends React.Component {
+class SelectedRestaurant extends React.Component {
     
     getData(name: string) {
 		return RESTAURANT_DATA[name];
@@ -32,7 +34,7 @@ export default class SelectedRestaurant extends React.Component {
             scrollView.push(<FoodHeader key={keyHolder} name={data.restaurantInfo.foodSection[i].sectionName}/>)
             for(let j=0; j<data.restaurantInfo.foodSection[i].foods.length; j++){
                 keyHolder = i.toString() + j.toString();
-                scrollView.push(<Food key={keyHolder} name={data.restaurantInfo.foodSection[i].foods[j].name}/>)
+                scrollView.push(<Food key={keyHolder} navi={navigation} name={data.restaurantInfo.foodSection[i].foods[j].name} ingredients={data.restaurantInfo.foodSection[i].foods[j].ingredients}/>)
             }
         }
 		
@@ -82,6 +84,18 @@ export default class SelectedRestaurant extends React.Component {
 	}
 }
 
+// Navigation Stack
+export default createStackNavigator(
+  {
+	RestaurantInfo: SelectedRestaurant,
+	FoodInfo: FoodInfo,
+  },
+  {
+    initialRouteName: 'RestaurantInfo',
+	headerMode: 'none',
+  }
+);
+
 // Header Component - Displayed on SelectedRestaurant Class before Food itens
 class FoodHeader extends React.Component {
 	render() {
@@ -99,13 +113,21 @@ class Food extends React.Component {
     showNutritionalInfo() {
 		Alert.alert('You tapped the button!')
 	}
+	
+	ShowNutriInfo = () =>
+	{
+		this.props.navi.navigate('FoodInfo', {
+              name: this.props.name,
+			  ingredients: this.props.ingredients,
+            });
+	}
     
 	render() {
 		return (
 			<View style={styles.food}>
 				<Text>{this.props.name}</Text>
                 <Button
-                    onPress={this.showNutritionalInfo}
+                    onPress={this.ShowNutriInfo}
                     title="i"/>
 			</View>
 		);
