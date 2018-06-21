@@ -24,8 +24,6 @@ class SelectedRestaurant extends React.Component {
         const score = navigation.getParam('score', '0.0');
 		const otherParam = navigation.getParam('otherParam', 'default');
         const data = this.getData(name);
-        //Alert.alert(data.restaurantInfo.foodSection[0].foods[0].description);
-        //Alert.alert(data.restaurantInfo.foodSection[0].foods.length.toString());
         
         var scrollView = [];
         var keyHolder;
@@ -33,7 +31,7 @@ class SelectedRestaurant extends React.Component {
             keyHolder = i.toString();
             scrollView.push(<FoodHeader key={keyHolder} name={data.restaurantInfo.foodSection[i].sectionName}/>)
             for(let j=0; j<data.restaurantInfo.foodSection[i].foods.length; j++){
-                keyHolder = i.toString() + j.toString();
+                keyHolder = i.toString() + '-' + j.toString();
                 scrollView.push(<Food key={keyHolder} navi={navigation} name={data.restaurantInfo.foodSection[i].foods[j].name} ingredients={data.restaurantInfo.foodSection[i].foods[j].ingredients}/>)
             }
         }

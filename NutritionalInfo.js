@@ -17,12 +17,6 @@ export default class FoodInfo extends React.Component {
                       foodFetched: false }
 	}
     
-    getNDBNO(){
-        const { navigation } = this.props;
-        var ingredients = navigation.getParam('ingredients', []);
-		this.fetchFoodNdb(ingredients);
-	}
-    
     fetchFoodNdb(list){
         let ndbBkup = [...this.state.ndbNos];
         fetch(this.buildURLForFood(list[0].name))
@@ -96,14 +90,9 @@ export default class FoodInfo extends React.Component {
     
     componentDidMount(){
         const { navigation } = this.props;
-        var name = navigation.getParam('name', 'Undefined');
         var ingredients = navigation.getParam('ingredients', []);
         this.setState({ nOfIngredients: ingredients.length },  function() {
-                console.log("###############################");
-                console.log(ingredients.length.toString());
-                console.log("@@@@@@@@@@@@@@@@@@@@@@");
-                console.log(this.state.nOfIngredients);
-                this.getNDBNO();
+                this.fetchFoodNdb([...ingredients]);
             });
         
         return;
@@ -114,9 +103,15 @@ export default class FoodInfo extends React.Component {
 		const { navigation } = this.props;
 		const name = navigation.getParam('name', 'Undefined');
 		const ingredients = navigation.getParam('ingredients', 'empty');
-		
-		//this.getNDBNO('https://api.nal.usda.gov/ndb/search/?format=json&q=butter&sort=r&ds=Standard%20Reference&max=1&offset=0&api_key=N8yGCm0uUt20Cvdo7rYKM4hxcPi3DLZ04dxE3kpB')
-        //this.getNDBNO('https://jsonplaceholder.typicode.com/posts')
+        
+        var displayData = [];
+        var totalInfo = {energy: 0.0, sugar: 0.0, fat: 0.0, carbs: 0.0};
+        for(let i=0; i<this.state.info.length; i++){
+            totalInfo.energy = totalInfo.energy + ((isNaN(parseFloat(this.state.info[i].energy, 10)) ? 0 : parseFloat(this.state.info[i].energy, 10))*parseFloat(ingredients[i].quantity)/100);
+            totalInfo.sugar = totalInfo.sugar + ((isNaN(parseFloat(this.state.info[i].sugar, 10)) ? 0 : parseFloat(this.state.info[i].sugar, 10))*parseFloat(ingredients[i].quantity)/100);
+            totalInfo.fat = totalInfo.fat + ((isNaN(parseFloat(this.state.info[i].fat, 10)) ? 0 : parseFloat(this.state.info[i].fat, 10))*parseFloat(ingredients[i].quantity)/100);
+            totalInfo.carbs = totalInfo.carbs + ((isNaN(parseFloat(this.state.info[i].carbs, 10)) ? 0 : parseFloat(this.state.info[i].carbs, 10))*parseFloat(ingredients[i].quantity)/100);
+        }
 		
 		if(this.state.isLoading){
 			return(
@@ -139,16 +134,9 @@ export default class FoodInfo extends React.Component {
 					renderItem={({item}) => <Text>{item.energy}, {item.sugar}, {item.fat}, {item.carbs}</Text>}
 					keyExtractor={(item, index) => index}
 				/>
+                <Text>{totalInfo.energy.toFixed(2)}, {totalInfo.sugar.toFixed(2)}, {totalInfo.fat.toFixed(2)}, {totalInfo.carbs.toFixed(2)}</Text>
 			</View>
 		);
-		
-		/*return (
-			<View style={{flex: 1, backgroundColor: 'red'}}>
-				<Text>{name}</Text>
-				<Text>{ingredients}</Text>
-				
-			</View>
-		);*/
 	}
 }
 
