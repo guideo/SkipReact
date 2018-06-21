@@ -5,19 +5,19 @@
             {"sectionName": "Section 1",
             "foods": [
                 {"name": "Executive", "price": "5.95", "description": "Rice, Beans and Beef", "ingredients": [
-					{"name": "Rice",
+					{"name": "white rice cooked",
 					"quantity": "80"},
-					{"name": "Beans",
+					{"name": "green beans cooked",
 					"quantity": "50"},
-					{"name": "Beef Steak",
+					{"name": "Beef Steak cooked",
 					"quantity": "150"}
 					]},
                 {"name": "Executive Plus", "price": "7.00", "description": "Rice, Beans, Beef and Vegetables", "ingredients": [
-					{"name": "Rice",
+					{"name": "white rice cooked",
 					"quantity": "80"},
-					{"name": "Beans",
+					{"name": "green neans cooked",
 					"quantity": "50"},
-					{"name": "Beef Steak",
+					{"name": "Beef Steak cooked",
 					"quantity": "150"},
 					{"name": "Carrots",
 					"quantity": "30"},
@@ -41,8 +41,8 @@
 					{"name": "bacon cooked",
 					"quantity": "20"}
 					]},
-                {"name": "Soda", "price": "1.00", "description": "Pepsi only", "ingredients": [
-					{"name": "pepsi",
+                {"name": "Orange Juice", "price": "1.00", "description": "", "ingredients": [
+					{"name": "orange juice",
 					"quantity": "500"}
 					]}
             ]}
