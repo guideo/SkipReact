@@ -1,11 +1,20 @@
 {
     "restaurantInfo": {
         "name": "Melting Pot Bar & Grill",
+        "address": "Higgins Ave.",
+        "deliveryEstimate": "37 - 57 Mins · $3.95 · More",
         "foodSection": [
-            {"sectionName": "Section 1",
+            {"sectionName": "Food Menu",
             "foods": [
-                {"name": "Churrasco", "price": "10.00", "description": "Meat", "ingredients": ""},
-                {"name": "Salada", "price": "2.00", "description": "Lettuce", "ingredients": ""}
+                {"name": "Barbecue", "price": "10.00", "description": "Delicious Grilled Meat", "ingredients": ""},
+                {"name": "Greens", "price": "2.00", "description": "Lettuce, tomatoes and onions", "ingredients": ""}
+            ]},
+            {"sectionName": "Drinks",
+            "foods": [
+                {"name": "Grape Juice", "price": "1.50", "description": "Canned grape juice, 350 ml", "ingredients": [
+                {"name": "grape juice",
+				"quantity": "350"}
+                ]}
             ]}
         ]
     }

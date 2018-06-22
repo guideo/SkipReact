@@ -4,11 +4,18 @@ import { StyleSheet, Text, View, Image, Button, TouchableOpacity, ImageBackgroun
 import { createStackNavigator } from 'react-navigation';
 import FoodInfo from './NutritionalInfo';
 
-// Loading Restaurant Logos Statically
+// Loading Restaurant Json Statically
 const RESTAURANT_DATA = {
 	'Sogbu Restaurant': require('./assets/json/Sogbu Restaurant.json'),
 	'Melting Pot Bar & Grill': require('./assets/json/Melting Pot.json'),
 	'Premium Burger': require('./assets/json/Premium Burger.json'),
+}
+
+// Loading Restaurant Background Image Statically
+const RESTAURANT_BACKGROUND = {
+	'Sogbu Restaurant': require('./assets/img/dinnerpackage_large.jpg'),
+	'Melting Pot Bar & Grill': require('./assets/img/grill.jpg'),
+	'Premium Burger': require('./assets/img/hamburger.jpg'),
 }
 
 // Restaurant Class
@@ -16,6 +23,10 @@ class SelectedRestaurant extends React.Component {
     
     getData(name: string) {
 		return RESTAURANT_DATA[name];
+	}
+    
+    getImage(name: string) {
+		return RESTAURANT_BACKGROUND[name];
 	}
     
 	render() {
@@ -32,14 +43,13 @@ class SelectedRestaurant extends React.Component {
             scrollView.push(<FoodHeader key={keyHolder} name={data.restaurantInfo.foodSection[i].sectionName}/>)
             for(let j=0; j<data.restaurantInfo.foodSection[i].foods.length; j++){
                 keyHolder = i.toString() + '-' + j.toString();
-                //scrollView.push(<Food key={keyHolder} navi={navigation} name={data.restaurantInfo.foodSection[i].foods[j].name} ingredients={data.restaurantInfo.foodSection[i].foods[j].ingredients}/>)
 				scrollView.push(<Food key={keyHolder} navi={navigation} food={data.restaurantInfo.foodSection[i].foods[j]}/>)
             }
         }
 		
 		return (
 		<View style={{flex: 1}}>
-			<ImageBackground source={require('./assets/img/dinnerpackage_large.jpg')} style={{flex: 3.5}}>
+			<ImageBackground source={this.getImage(name)} style={{flex: 3.5}}>
                 <View style={{flex: 0.5, backgroundColor: '#00000040'}}>
                 </View>
                 
@@ -56,8 +66,8 @@ class SelectedRestaurant extends React.Component {
                 <View style={{flex: 2, flexDirection: 'row', backgroundColor: '#00000040'}}>
                     <View style={{flex: 6.2, marginLeft: 15}}>
                         <Text style={[styles.textWithShadow, styles.bigFont]}>{name}</Text>
-                        <Text style={[styles.textWithShadow]}>Portage Ave.</Text>
-                        <Text style={[styles.textWithShadow, styles.topPadding]}>35 - 55 Mins · $3.45 · More</Text>
+                        <Text style={[styles.textWithShadow]}>{data.restaurantInfo.address}</Text>
+                        <Text style={[styles.textWithShadow, styles.topPadding]}>{data.restaurantInfo.deliveryEstimate}</Text>
                     </View>
                     <View style={{flex: 1.3, alignItems: 'center'}}>
                         <View style={styles.score}>
@@ -117,13 +127,22 @@ class Food extends React.Component {
 	}
     
 	render() {
+        
+        let infoIcon;
+        
+        if (this.props.food.ingredients.length > 0) {
+            infoIcon = <TouchableOpacity onPress={this.ShowNutriInfo}>
+						<Icon style={{flex: 0.1}} name='info' color='#cccccc'/>
+					</TouchableOpacity>;
+        } else {
+            infoIcon = <View></View>;
+        }
+        
 		return (
 			<View style={styles.food}>
 				<View style={{flex: 0, flexDirection: 'row', paddingTop: 10}}>
 					<Text style={{flex: 0.75, marginLeft: 15}}>{this.props.food.name}</Text>
-					<TouchableOpacity onPress={this.ShowNutriInfo}>
-						<Icon style={{flex: 0.1}} name='info' color='#cccccc'/>
-					</TouchableOpacity>
+                        {infoIcon}
 					<Text style={{flex: 0.15, textAlign: 'center'}}>${this.props.food.price}</Text>
 				</View>
 				<View style={{flex: 0, flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>

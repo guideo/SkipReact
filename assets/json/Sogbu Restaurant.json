@@ -1,6 +1,8 @@
 {
     "restaurantInfo": {
         "name": "Sogbu Restaurant",
+        "address": "Portage Ave.",
+        "deliveryEstimate": "35 - 55 Mins · $3.45 · More",
         "foodSection": [
             {"sectionName": "Traditional Plates",
             "foods": [
@@ -37,14 +39,14 @@
 					{"name": "bacon cooked",
 					"quantity": "20"}
 					]},
-				{"name": "Pizza", "price": "11.25", "description": "Pizza made out of Cheese and Pepperoni", "ingredients": [
-					{"name": "Lettuce",
-					"quantity": "20"}
+				{"name": "Pizza", "price": "11.25", "description": "Pizza made out of Cheese and Pepperoni\nNutritional info per slice (96 g)", "ingredients": [
+					{"name": "12'' pepperoni pizza",
+					"quantity": "96"}
 					]}
             ]},
 			{"sectionName": "Drinks",
 			"foods": [
-				{"name": "Orange Juice", "price": "1.00", "description": "", "ingredients": [
+				{"name": "Orange Juice", "price": "1.00", "description": "500 ml of fresh squeezed oranges", "ingredients": [
 					{"name": "orange juice",
 					"quantity": "500"}
 					]}

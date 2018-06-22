@@ -1,15 +1,26 @@
 {
     "restaurantInfo": {
-        "name": "Sogbu Restaurant",
+        "name": "Premium Burger",
+        "address": "Broadway Ave.",
+        "deliveryEstimate": "25 - 45 Mins · $3.45 · More",
         "foodSection": [
             {"sectionName": "Snacks",
             "foods": [
-                {"name": "French Fries", "price": "1.75", "description": "Fried potato sticks", "ingredients": ""},
-                {"name": "Chicken Wings", "price": "5.00", "description": "Fried chicken breasts", "ingredients": ""}
+                {"name": "French Fries", "price": "1.75", "description": "Fried potato sticks", "ingredients": [
+					{"name": "McDONALDS french fries",
+					"quantity": "200"}
+					]},
+                {"name": "Chicken Wings", "price": "5.00", "description": "Fried chicken breasts", "ingredients": [
+					{"name": "21472",
+					"quantity": "300"}
+					]}
             ]},
             {"sectionName": "Drinks",
             "foods": [
-                {"name": "Soda", "price": "1.00", "description": "Pepsi", "ingredients": ""}
+                {"name": "Soda", "price": "1.00", "description": "Pepsi, 500 ml", "ingredients": [
+					{"name": "soda cola",
+					"quantity": "500"}
+					]}
             ]}
         ]
     }
