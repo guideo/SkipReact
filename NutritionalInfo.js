@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
-import { StyleSheet, Text, View, ScrollView, Alert, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, FlatList } from 'react-native';
 
 //N8yGCm0uUt20Cvdo7rYKM4hxcPi3DLZ04dxE3kpB
 
@@ -77,20 +77,19 @@ export default class FoodInfo extends React.Component {
     buildURLForFood(item){
         const url = 'https://api.nal.usda.gov/ndb/search/?format=json&ds=Standard%20Reference&sort=r&max=1&offset=0&api_key=N8yGCm0uUt20Cvdo7rYKM4hxcPi3DLZ04dxE3kpB&q=';
         let retURL = url + item;
-        console.log(retURL);
         return retURL;
     }
     
     buildURLForNutrients(item){
         const url = 'https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=N8yGCm0uUt20Cvdo7rYKM4hxcPi3DLZ04dxE3kpB&nutrients=205&nutrients=204&nutrients=208&nutrients=269&ndbno=';
         let retURL = url + item;
-        console.log(retURL);
         return retURL;
     }
     
     componentDidMount(){
         const { navigation } = this.props;
-        var ingredients = navigation.getParam('ingredients', []);
+        var food = navigation.getParam('food', []);
+		var ingredients = food.ingredients;
         this.setState({ nOfIngredients: ingredients.length },  function() {
                 this.fetchFoodNdb([...ingredients]);
             });
@@ -101,8 +100,8 @@ export default class FoodInfo extends React.Component {
 	render() {
 		
 		const { navigation } = this.props;
-		const name = navigation.getParam('name', 'Undefined');
-		const ingredients = navigation.getParam('ingredients', 'empty');
+		const food = navigation.getParam('food', []);
+		const ingredients = food.ingredients;
         
         var displayData = [];
         var totalInfo = {energy: 0.0, sugar: 0.0, fat: 0.0, carbs: 0.0};
@@ -122,19 +121,43 @@ export default class FoodInfo extends React.Component {
 		}
 
 		return(
-			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-				<Text>{ingredients.length.toString()}</Text>
-                <FlatList
-					data={this.state.ndbNos}
-					renderItem={({item}) => <Text>{item.ndb}, {item.name}</Text>}
-					keyExtractor={(item, index) => index}
-				/>
-				<FlatList
-					data={this.state.info}
-					renderItem={({item}) => <Text>{item.energy}, {item.sugar}, {item.fat}, {item.carbs}</Text>}
-					keyExtractor={(item, index) => index}
-				/>
-                <Text>{totalInfo.energy.toFixed(2)}, {totalInfo.sugar.toFixed(2)}, {totalInfo.fat.toFixed(2)}, {totalInfo.carbs.toFixed(2)}</Text>
+			<View style={{flex: 1}}>
+				<View style={{flex: 0.5, backgroundColor: 'red'}}>
+				</View>
+				<View style={{flex: 1, backgroundColor: 'red', justifyContent: 'center'}}>
+					<Text style={{marginLeft: 70, color: 'white', fontSize: 23, fontWeight: '400'}}>{food.name}</Text>
+				</View>
+				<View style={{flex: 13}}>
+					<View style={{flex: 0, backgroundColor: '#dddddd', borderBottomColor: '#cccccc', borderBottomWidth: 1}}>
+						<View style={{flex: 0, justifyContent: 'flex-end'}}>
+							<Text style={{marginLeft: 40, fontSize: 20, fontWeight: 'bold', paddingTop: 10}}>Nutritional Info</Text>
+						</View>
+						<View style={{flex: 0}}>
+							<Text style={{marginLeft: 40, fontSize: 12, color: '#909090', paddingTop: 5, paddingBottom: 10}}>{food.description}</Text>
+						</View>
+					</View>
+					<View style={{flex: 1}}>
+						<NutritionalInfo name='Energy' value={totalInfo.energy.toFixed(2)}/>
+						<NutritionalInfo name='Sugar' value={totalInfo.sugar.toFixed(2)}/>
+						<NutritionalInfo name='Fat' value={totalInfo.fat.toFixed(2)}/>
+						<NutritionalInfo name='Carbs' value={totalInfo.carbs.toFixed(2)}/>
+					</View>
+				</View>
+			</View>
+		);
+	}
+}
+
+class NutritionalInfo extends React.Component {
+	render() {
+		return (
+			<View style={{height: 40, backgroundColor: 'white', borderBottomColor: '#cccccc', borderBottomWidth: 1, flexDirection: 'row', alignItems: 'center'}}>
+				<View style={{flex: 0.3, borderRightColor: '#dddddd', borderRightWidth: 1}}>
+					<Text style={{fontSize: 17, paddingLeft:40, fontWeight: 'bold'}}>{this.props.name}:</Text>
+				</View>
+				<View style={{flex: 0.7}}>
+					<Text style={{fontSize: 15, paddingLeft:10}}>{this.props.value}</Text>
+				</View>
 			</View>
 		);
 	}

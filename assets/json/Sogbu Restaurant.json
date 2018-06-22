@@ -2,7 +2,7 @@
     "restaurantInfo": {
         "name": "Sogbu Restaurant",
         "foodSection": [
-            {"sectionName": "Section 1",
+            {"sectionName": "Traditional Plates",
             "foods": [
                 {"name": "Executive", "price": "5.95", "description": "Rice, Beans and Beef", "ingredients": [
 					{"name": "white rice cooked",
@@ -23,13 +23,9 @@
 					"quantity": "30"},
 					{"name": "Tomato Cooked",
 					"quantity": "50"}
-					]},
-                {"name": "Pizza", "price": "11.25", "description": "Pizza made out of Cheese and Pepperoni", "ingredients": [
-					{"name": "Lettuce",
-					"quantity": "20"}
 					]}
             ]},
-            {"sectionName": "Section 2",
+            {"sectionName": "Food to eat Fast",
             "foods": [
                 {"name": "Burger", "price": "4.00", "description": "2 patties with cheese and bacon", "ingredients": [
 					{"name": "bread wheat",
@@ -41,11 +37,18 @@
 					{"name": "bacon cooked",
 					"quantity": "20"}
 					]},
-                {"name": "Orange Juice", "price": "1.00", "description": "", "ingredients": [
+				{"name": "Pizza", "price": "11.25", "description": "Pizza made out of Cheese and Pepperoni", "ingredients": [
+					{"name": "Lettuce",
+					"quantity": "20"}
+					]}
+            ]},
+			{"sectionName": "Drinks",
+			"foods": [
+				{"name": "Orange Juice", "price": "1.00", "description": "", "ingredients": [
 					{"name": "orange juice",
 					"quantity": "500"}
 					]}
-            ]}
+			]}
         ]
     }
 }

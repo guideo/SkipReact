@@ -32,7 +32,8 @@ class SelectedRestaurant extends React.Component {
             scrollView.push(<FoodHeader key={keyHolder} name={data.restaurantInfo.foodSection[i].sectionName}/>)
             for(let j=0; j<data.restaurantInfo.foodSection[i].foods.length; j++){
                 keyHolder = i.toString() + '-' + j.toString();
-                scrollView.push(<Food key={keyHolder} navi={navigation} name={data.restaurantInfo.foodSection[i].foods[j].name} ingredients={data.restaurantInfo.foodSection[i].foods[j].ingredients}/>)
+                //scrollView.push(<Food key={keyHolder} navi={navigation} name={data.restaurantInfo.foodSection[i].foods[j].name} ingredients={data.restaurantInfo.foodSection[i].foods[j].ingredients}/>)
+				scrollView.push(<Food key={keyHolder} navi={navigation} food={data.restaurantInfo.foodSection[i].foods[j]}/>)
             }
         }
 		
@@ -98,8 +99,8 @@ export default createStackNavigator(
 class FoodHeader extends React.Component {
 	render() {
 		return (
-			<View style={styles.foodHeader}>
-				<Text>{this.props.name}</Text>
+			<View style={[styles.foodHeader, styles.center]}>
+				<Text style={styles.foodHeaderText}>{this.props.name}</Text>
 			</View>
 		);
 	}
@@ -107,26 +108,27 @@ class FoodHeader extends React.Component {
 
 // Food Component - Displayed on SelectedRestaurant Class
 class Food extends React.Component {
-    
-    showNutritionalInfo() {
-		Alert.alert('You tapped the button!')
-	}
 	
 	ShowNutriInfo = () =>
 	{
 		this.props.navi.navigate('FoodInfo', {
-              name: this.props.name,
-			  ingredients: this.props.ingredients,
+              food: this.props.food
             });
 	}
     
 	render() {
 		return (
 			<View style={styles.food}>
-				<Text>{this.props.name}</Text>
-                <Button
-                    onPress={this.ShowNutriInfo}
-                    title="i"/>
+				<View style={{flex: 0, flexDirection: 'row', paddingTop: 10}}>
+					<Text style={{flex: 0.75, marginLeft: 15}}>{this.props.food.name}</Text>
+					<TouchableOpacity onPress={this.ShowNutriInfo}>
+						<Icon style={{flex: 0.1}} name='info' color='#cccccc'/>
+					</TouchableOpacity>
+					<Text style={{flex: 0.15, textAlign: 'center'}}>${this.props.food.price}</Text>
+				</View>
+				<View style={{flex: 0, flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
+					<Text style={{marginLeft: 15, fontSize: 12, color: '#909090'}}>{this.props.food.description}</Text>
+				</View>
 			</View>
 		);
 	}
@@ -136,16 +138,23 @@ class Food extends React.Component {
 const styles = StyleSheet.create({
     foodHeader: {
         height: 70,
-        backgroundColor: '#dddddd',
-        borderBottomColor: '#bbbbbb',
-        borderBottomWidth: 2,
-        
+        backgroundColor: '#eeeeee',
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: 1,
+		justifyContent: 'center'
     },
+	foodHeaderText: {
+		fontSize: 16,
+		color: '#404040',
+		fontWeight: '100',
+		marginLeft: 15,
+	},
     food: {
-        height: 100,
-        backgroundColor: 'red',
-        borderBottomColor: '#bbbbbb',
-        borderBottomWidth: 2,
+        //height: 100,
+		flex: 0,
+        backgroundColor: 'white',
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: 1
     },
     score: {
         marginTop: 15,
@@ -156,19 +165,19 @@ const styles = StyleSheet.create({
         width: 40,
         height: 30,
         borderColor: 'white',
-        borderWidth: 2,
+        borderWidth: 2
     },
     textWithShadow: {
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
         textShadowOffset: {width: -1, height: 1},
         textShadowRadius: 10,
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
     topPadding: {
-        paddingTop: 10,
+        paddingTop: 10
     },
     bigFont: {
-        fontSize: 22,
+        fontSize: 22
     },
 });
